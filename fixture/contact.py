@@ -3,7 +3,6 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
-
     def create(self, contact):
         wd = self.app.wd
         # init contact creation
