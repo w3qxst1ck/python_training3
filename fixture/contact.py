@@ -112,25 +112,38 @@ class ContactHelper:
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
 
-
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
         self.open_contact_to_edit_by_index(index)
         firstname = wd.find_element_by_name("firstname").get_attribute("value")
+        middlename = wd.find_element_by_name("middlename").get_attribute("value")
         lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        nickname = wd.find_element_by_name("nickname").get_attribute("value")
+        company = wd.find_element_by_name("company").get_attribute("value")
+        title = wd.find_element_by_name("title").get_attribute("value")
         id = wd.find_element_by_name("id").get_attribute("value")
         homephone = wd.find_element_by_name("home").get_attribute("value")
         workphone = wd.find_element_by_name("work").get_attribute("value")
-        return Contact(firstname=firstname, lastname=lastname, id=id,
-                       homephone=homephone, workphone=workphone)
+        return Contact(firstname=firstname, middlename=middlename, lastname=lastname, nickname=nickname,
+                       company=company, title=title, id=id, homephone=homephone, workphone=workphone)
 
     def get_contact_info_from_view_page(self, index):
         wd = self.app.wd
         self.open_contact_view_by_index(index)
         text = wd.find_element_by_id("content").text
+        lines = text.splitlines()
+        firstname = lines[0].split()[0]
+        middlename = lines[0].split()[1]
+        lastname = lines[0].split()[2]
+        nickname = lines[1]
+        title = lines[2]
+        company = lines[3]
         homephone = re.search("H: (.*)", text).group(1)
         workphone = re.search("W: (.*)", text).group(1)
-        return Contact(homephone=homephone, workphone=workphone)
+        return Contact(firstname=firstname, middlename=middlename, lastname=lastname,
+                       nickname=nickname, title=title, company=company, homephone=homephone, workphone=workphone)
+
+
 
 
 
