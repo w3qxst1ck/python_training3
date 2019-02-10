@@ -93,9 +93,9 @@ class ContactHelper:
                 text1 = cells[2].text
                 text2 = cells[1].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                all_phones = cells[5].text.splitlines()
+                all_phones = cells[5].text
                 self.contact_cache.append(Contact(firstname=text1, id=id, lastname=text2,
-                                                  homephone=all_phones[0], workphone=all_phones[1]))
+                                                  all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
     def open_contact_view_by_index(self, index):
