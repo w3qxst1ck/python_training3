@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
+import pytest
 
 
-def test_add_contact(app):
+testdata = [
+    Contact(firstname="asdasd", middlename="asd", lastname="fddfdf", nickname="fdfddffd",
+                               title="adfadf", company="asdfafd", homephone="634850", workphone="89679185042"),
+    Contact(firstname="", middlename="", lastname="", nickname="", title="", company="", homephone="", workphone="")
+]
+
+
+@pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
+def test_add_contact(app, contact):
     old_contacts = app.contact.get_contact_list()
-    contact = Contact(firstname="asdasd", middlename="asd", lastname="fddfdf", nickname="fdfddffd",
-                               title="adfadf", company="asdfafd", homephone="634850", workphone="89679185042")
     app.contact.create(contact)
     assert len(old_contacts) + 1 == app.contact.count()
     new_contacts = app.contact.get_contact_list()
