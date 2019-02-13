@@ -15,8 +15,9 @@ testdata = [Contact(firstname="", middlename="", lastname="", nickname="", title
             Contact(firstname=random_string("firstname", 10), middlename=random_string("middlename", 10),
                     lastname=random_string("lastname", 10), nickname=random_string("nickname", 10),
                     title=random_string("title", 10), company=random_string("company", 10),
-                    address=random_string("address", 10),homephone=random_string("homephone", 10),
-                    workphone=random_string("workphone", 10))
+                    address=random_string("address", 20),homephone=random_string("homephone", 10),
+                    workphone=random_string("workphone", 10), email=random_string("email_1", 10),
+                    email2=random_string("email_2", 10), email3=random_string("email_3", 10))
             for i in range(10)
 ]
 
