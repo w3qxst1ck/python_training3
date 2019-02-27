@@ -8,7 +8,7 @@ def test_modify_contact_firstname(app, db, check_ui):
     old_contacts = db.get_contact_list()
     modifing_contact = random.choice(old_contacts)
     index = old_contacts.index(modifing_contact)
-    contact = Contact(firstname="New firstname")
+    contact = Contact(firstname="New_firstname")
     contact.id = modifing_contact.id
     app.contact.modify_contact_by_id(modifing_contact.id, contact)
     new_contacts = db.get_contact_list()
