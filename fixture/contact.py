@@ -148,12 +148,16 @@ class ContactHelper:
     def open_contact_to_edit_by_id(self, id):
         wd = self.app.wd
         self.open_home_page()
-        rows = wd.find_elements_by_name("entry")
-        for row in rows:
-            if wd.find_element_by_css_selector("input[value='%s']" % id):
-                cell = row.find_elements_by_tag_name("td")[7]
-                cell.find_element_by_tag_name("a").click()
-                return
+        # rows = wd.find_elements_by_name("entry")
+        # for row in rows:
+        #     if row.find_element_by_css_selector("input[value='%s']" % id):
+        #         cell = row.find_elements_by_tag_name("td")[7]
+        #         cell.find_element_by_tag_name("a").click()
+        #         return
+        chbox = wd.find_element_by_css_selector("input[value='%s']" % id)
+        row = chbox.find_element_by_xpath("./../..")
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_element_by_tag_name("a").click()
 
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
@@ -196,8 +200,13 @@ class ContactHelper:
                        nickname=nickname, title=title, company=company, homephone=homephone, workphone=workphone,
                        email=email, email2=email2, email3=email3)
 
-
-
+    def add_contact_to_group(self, id_list:list, group_name):
+        wd = self.app.wd
+        self.open_home_page()
+        for i in id_list:
+            wd.find_element_by_css_selector("input[value='%s']" % i).click()
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_name("to_group")).select_by_visible_text("%s") % group_name
 
 
 
